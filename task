@@ -1,0 +1,30 @@
+# ====================================
+# SIMPLE IMAGE TAGGING (BEGINNER)
+# Programiz Compatible Code
+# ====================================
+
+# Sample image features (pretend extracted)
+# Format: [edges, corners, color_intensity]
+dataset = {
+    "cat": [3, 5, 7],
+    "dog": [4, 6, 8],
+    "car": [8, 9, 3]
+}
+
+def predict_image(features):
+    min_distance = float("inf")
+    predicted_label = None
+
+    for label, data in dataset.items():
+        distance = sum((features[i] - data[i]) ** 2 for i in range(3))
+        if distance < min_distance:
+            min_distance = distance
+            predicted_label = label
+
+    return predicted_label
+
+# Test Image (example input)
+test_image_features = [4, 5, 7]
+
+result = predict_image(test_image_features)
+print("Predicted Image Tag:", result)
