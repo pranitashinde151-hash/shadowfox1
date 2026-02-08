@@ -1,0 +1,39 @@
+# shadowfox1import pandas as pd
+
+# Create sample dataset
+data = {
+    'Order Date': ['2024-01-05', '2024-01-10', '2024-02-15', '2024-03-12', '2024-03-18'],
+    'Category': ['Technology', 'Furniture', 'Office Supplies', 'Technology', 'Furniture'],
+    'Product Name': ['Laptop', 'Chair', 'Pen', 'Mobile', 'Table'],
+    'Sales': [50000, 15000, 2000, 30000, 12000],
+    'Profit': [8000, -2000, 500, 6000, -1000]
+}
+
+df = pd.DataFrame(data)
+
+print("Dataset:")
+print(df)
+
+# Convert date
+df['Order Date'] = pd.to_datetime(df['Order Date'])
+
+# Total Sales & Profit
+print("\nTotal Sales:", df['Sales'].sum())
+print("Total Profit:", df['Profit'].sum())
+
+# Category analysis
+print("\nCategory-wise Analysis:")
+print(df.groupby('Category')[['Sales', 'Profit']].sum())
+
+# Monthly sales
+df['Month'] = df['Order Date'].dt.month
+print("\nMonthly Sales:")
+print(df.groupby('Month')['Sales'].sum())
+
+# Top products
+print("\nTop Profitable Products:")
+print(df.groupby('Product Name')['Profit'].sum().sort_values(ascending=False))
+
+# Loss products
+print("\nLoss Making Products:")
+print(df[df['Profit'] < 0])
